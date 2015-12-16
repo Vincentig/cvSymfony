@@ -1,0 +1,33 @@
+{% extends "::layout.html.twig" %}
+
+{% block stylesheet %}
+    {{ parent() }}
+
+{%endblock%}
+
+
+
+{% block bundle %} {{parent()}} CV{% endblock %}
+
+{% block title %} {{parent()}} - CV{% endblock %}
+
+{% block menu %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        <div class="container">
+            {% for message in app.session.flashbag.get('info') %}
+                <p class="alert alert-success">{{message}}</p>
+            {%endfor%}
+            {% for message in app.session.flashbag.get('erreur') %}
+                <p class="alert alert-danger">{{message}}</p>
+            {%endfor%}
+            {% block contenu %}
+
+            {%endblock%}
+        </div>
+    </div>
+{%endblock%}
+
