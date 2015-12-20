@@ -1,0 +1,15 @@
+{% extends "::layout_appbundle.html.twig" %}
+
+{% block contenu %}
+    <h1>Experience creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_experience') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

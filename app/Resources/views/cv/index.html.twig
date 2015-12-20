@@ -47,16 +47,16 @@
                     <ul>
                         {% if personne.facebook is not null %}
                             <li><a href="{{personne.facebook}}"><img src="{{asset('img/icons/facebook.png')}}" alt="" /></a></li>
-                                {% endif %}
-                                {% if personne.twitter is not null %}
-                            <li><a href="{{personne.twitter}}"><img src="{{asset('img/icons/twitter.png')}}" alt="" /></a></li>
-                                {%endif%}
-                                {% if personne.linkedin is not null %}
+                        {% endif %}
+                        {% if personne.twitter is not null %}
+                            <li><a href="{{personne.twitter}}"><img src="{{asset('img/icons/2.jpg')}}" alt="" /></a></li>
+                        {%endif%}
+                        {% if personne.linkedin is not null %}
                             <li><a href="{{personne.linkedin}}"><img src="{{asset('img/icons/linkedin.png')}}" alt="" /></a></li>
-                                {%endif%}
-                                {% if personne.viadeo is not null %}
-                            <li><a href="{{personne.viadeo}}"><img src="{{asset('img/icons/viadeo.png')}}" alt="" /></a></li>
-                                {%endif%}
+                        {%endif%}
+                        {% if personne.viadeo is not null %}
+                            <li><a href="{{personne.viadeo}}"><img src="{{asset('img/icons/Viadeo.png')}}" alt="" /></a></li>
+                        {%endif%}
 
                     </ul>
                 </div>
@@ -104,45 +104,29 @@
                 <h5>where I worked</h5>
             </aside>
             <div class="span9">
-                <div class="row-fluid">
-                    <article class="span12  borderleft par_el in_spacing">
-                        <span class="period">2012 - Present</span>
-                        <div class="bigspacing">
-                            <header>
-                                <h2>Pixel Dizajn Studio</h2>
-                                <h3>Designer</h3>
-                            </header>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam leo, ornare vulputate placerat luctus, sollicitudin id massa. Morbi elementum justo id lorem tempus quis interdum purus tristique. Nulla massa arcu, egestas at tincidunt placerat, luctus vel orci.</p>
-                            <p>Quisque non sollicitudin orci. Pellentesque lobortis rhoncus metus, quis bibendum nisi lacinia ut.</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="row-fluid">
-                    <article class="span12  borderleft par_el in_spacing">
-                        <span class="period">2008 - 2012</span>
-                        <div class="bigspacing">
-                            <header>
-                                <h2>College Art Studio</h2>
-                                <h3>UX Designer</h3>
-                            </header>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam leo, ornare vulputate placerat luctus, sollicitudin id massa. Morbi elementum justo id lorem tempus quis interdum purus tristique. Nulla massa arcu, egestas at tincidunt placerat, luctus vel orci.</p>
-                            <p>Quisque non sollicitudin orci. Pellentesque lobortis rhoncus metus, quis bibendum nisi lacinia ut.</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="row-fluid">
-                    <article class="span12  borderleft par_el in_spacingbottom">
-                        <span class="period">2007 - 2008</span>
-                        <div class="bigspacing">
-                            <header>
-                                <h2>Freelancer</h2>
-                                <h3>Web designer and developer</h3>
-                            </header>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam leo, ornare vulputate placerat luctus, sollicitudin id massa. Morbi elementum justo id lorem tempus quis interdum purus tristique. Nulla massa arcu, egestas at tincidunt placerat, luctus vel orci.</p>
-                            <p>Quisque non sollicitudin orci. Pellentesque lobortis rhoncus metus, quis bibendum nisi lacinia ut.</p>
-                        </div>
-                    </article>
-                </div>
+
+                {% for experience in personne.experiences %}
+                    <div class="row-fluid">
+                        <article class="span12  borderleft par_el in_spacing">
+                            <span class="period">{{ experience.dateDepart|date('M Y') }} - {{ experience.dateFin|date('M Y') }}</span>
+                            <div class="bigspacing">
+                                <header>
+                                    <h2>{{ experience.entreprise }}</h2>
+                                    <h3>{{ experience.poste }}</h3>
+                                </header>
+                                <p>{{ experience.contenu }}</p>
+                                <p>
+                                    {% for skill in experience.skills %}
+                                       {{ skill.nom }}{% if not loop.last %} /{% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+
+
+
             </div>
         </section> <!-- /experience -->
         <!-- end EXPERIENCE -->
@@ -154,84 +138,29 @@
                 <h5>my college and<br /> high school</h5>
             </aside>
             <div class="span9">
-                <div class="row-fluid">
-                    <article class="span12  borderleft par_el in_spacing">
-                        <span class="period">2003 - 2007</span>
-                        <div class="bigspacing">
-                            <header>
-                                <h2>Stanford University</h2>
-                                <h3>Computer science</h3>
-                            </header>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam leo, ornare vulputate placerat luctus, sollicitudin id massa. Morbi elementum justo id lorem tempus quis interdum purus tristique. Nulla massa arcu, egestas at tincidunt placerat, luctus vel orci.</p>
-                            <p>Quisque non sollicitudin orci. Pellentesque lobortis rhoncus metus, quis bibendum nisi lacinia ut.</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="row-fluid">
-                    <article class="span12  borderleft par_el in_spacingbottom">
-                        <span class="period">1992 - 2003</span>
-                        <div class="bigspacing">
-                            <header>
-                                <h2>Head-Royce School</h2>
-                                <h3>Oakland, CA</h3>
-                            </header>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc diam leo, ornare vulputate placerat luctus, sollicitudin id massa. Morbi elementum justo id lorem tempus quis interdum purus tristique. Nulla massa arcu, egestas at tincidunt placerat, luctus vel orci.</p>
-                            <p>Quisque non sollicitudin orci. Pellentesque lobortis rhoncus metus, quis bibendum nisi lacinia ut.</p>
-                        </div>
-                    </article>
-                </div>
+
+                {% for formation in personne.formations %}
+                    <div class="row-fluid">
+                        <article class="span12  borderleft par_el in_spacing">
+                            <span class="period">{{ formation.dateDepart|date('M Y') }} - {{ formation.dateFin|date('M Y') }}</span>
+                            <div class="bigspacing">
+                                <header>
+                                    <h2>{{ formation.diplome }}</h2>
+                                    <h3>{{ formation.ecole }}</h3>
+                                </header>
+                                <p>{{ formation.contenu }}</p>
+
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+
+
             </div>
         </section> <!-- /education -->
         <!-- end EDUCATION -->
 
-        <!-- PORTFOLIO -->
-        <section class="row-fluid portfolio" id="portfolio">
-            <aside class="span3 aside_el">
-                <h2>Portfolio</h2>
-                <h5>some of my<br /> best work</h5>
-            </aside>
-            <div class="span9 borderleft">
 
-                <div class="galleryContainer">	    	
-                    <div class="galleryItem">
-                        <a href="img/1.jpg" class="lightbox['portfolio']"><img src="img/gallery_1.jpg" alt="" /></a>
-                        <h3>Business Card</h3>
-                        <p>Graphic Design</p>
-                    </div>
-
-                    <div class="galleryItem">
-                        <a href="img/2.jpg" class="lightbox['portfolio']"><img src="img/gallery_2.jpg" alt="" /></a>
-                        <h3>Business Card Back</h3>
-                        <p>Graphic Design</p>
-                    </div>
-
-                    <div class="galleryItem">
-                        <a href="img/3.jpg" class="lightbox['portfolio']"><img src="img/gallery_3.jpg" alt="" /></a>
-                        <h3>CD case and promo</h3>
-                        <p>Print Design</p>
-                    </div>
-
-                    <div class="galleryItem">
-                        <a href="img/1.jpg" class="lightbox['portfolio']"><img src="img/gallery_1.jpg" alt="" /></a>
-                        <h3>Leaflet cards</h3>
-                        <p>Graphic Design</p>
-                    </div>
-
-                    <div class="galleryItem">
-                        <a href="img/2.jpg" class="lightbox['portfolio']"><img src="img/gallery_2.jpg" alt="" /></a>
-                        <h3>Business Design</h3>
-                        <p>Graphic Design</p>
-                    </div>
-
-                    <div class="galleryItem">
-                        <a href="img/3.jpg" class="lightbox['portfolio']"><img src="img/gallery_3.jpg" alt="" /></a>
-                        <h3>eBook cover</h3>
-                        <p>Graphic Design</p>
-                    </div>
-                </div>
-            </div>
-        </section> <!-- /portfolio -->
-        <!-- end PORTFOLIO -->
 
     </div> <!-- /page -->
     <footer class="row-fluid siteFooter">

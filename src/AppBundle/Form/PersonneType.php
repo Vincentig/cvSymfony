@@ -35,11 +35,6 @@ class PersonneType extends AbstractType {
                 ->add('twitter', UrlType::class, array('required' => false))
                 ->add('viadeo', UrlType::class, array('required' => false))
                 ->add('linkedin', UrlType::class, array('required' => false))
-                ->add('skills', CollectionType::class, array(
-                    'entry_type' => SkillType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'by_reference' => false))
                 ->add('ok', SubmitType::class)
         ;
     }

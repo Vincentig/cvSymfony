@@ -1,0 +1,15 @@
+{% extends "::layout_appbundle.html.twig" %}
+
+{% block contenu %}
+    <h1>Formation creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_formation') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

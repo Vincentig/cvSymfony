@@ -14,6 +14,17 @@ use AppBundle\Entity\Skill;
 class adminController extends Controller {
 
     /**
+     * @Route("/",
+     *      name="cv_admin_index")
+     */
+    public function indexAction()
+    {
+        return $this->render('admin/index.html.twig', array(
+
+        ));
+    }
+
+    /**
      * @Route("/ajouter/personne",
      *      name="cv_admin_ajouter_personne")
      */
@@ -113,7 +124,7 @@ class adminController extends Controller {
                     $session->getFlashBag()->add(
                             'info', 'skill enregistrée'
                     );
-                    $url = $this->generateUrl('cv_homepage');
+                    $url = $this->generateUrl('cv_admin_ajouter_skill');
                     return $this->redirect($url);
                 } catch (Exception $ex) {
                     echo 'erreur enregistrement skill';

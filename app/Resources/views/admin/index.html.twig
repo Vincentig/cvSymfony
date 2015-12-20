@@ -1,0 +1,13 @@
+{% extends "::layout_appbundle.html.twig" %}
+
+{% block contenu %}
+
+<ul>
+    <li><a href="{{ url('cv_homepage') }}">Retour au cv</a></li>
+    <li><a href="{{ url('cv_admin_modifier_personne') }}">Personne</a></li>
+    <li><a href="{{ url('cv_admin_ajouter_skill') }}">Skill</a></li>
+    <li><a href="{{ url('admin_experience') }}">Experience</a></li>
+    <li><a href="{{ url('admin_formation') }}">Formation</a></li>
+</ul>
+
+{% endblock %}

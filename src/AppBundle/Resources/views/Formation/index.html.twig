@@ -1,0 +1,52 @@
+{% extends "::layout_appbundle.html.twig" %}
+
+{% block contenu %}
+    <h1>Formation list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Datedepart</th>
+                <th>Datefin</th>
+                <th>Ecole</th>
+                <th>Diplome</th>
+                <th>Contenu</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('admin_formation_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.dateDepart %}{{ entity.dateDepart|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateFin %}{{ entity.dateFin|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.ecole }}</td>
+                <td>{{ entity.diplome }}</td>
+                <td>{{ entity.contenu }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('admin_formation_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('admin_formation_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('admin_formation_new') }}">
+                Create a new entry
+            </a>
+        </li>
+            <li>
+                <a href="{{ url('cv_admin_index') }}">Retour</a>
+            </li>
+    </ul>
+    {% endblock %}
