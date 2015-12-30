@@ -4,148 +4,148 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * Personne
  *
  * @ORM\Table(name="cv_personne")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonneRepository")
+
  */
-class Personne {
+class Personne extends BaseUser{
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
      */
-    private $nom;
+    protected $nom;
 
     /**
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
      */
-    private $prenom;
+    protected $prenom;
 
     /**
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255)
      */
-    private $adresse;
+    protected $adresse;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="cp", type="integer")
      */
-    private $cp;
+    protected $cp;
 
     /**
      * @var string
      *
      * @ORM\Column(name="ville", type="string", length=255)
      */
-    private $ville;
+    protected $ville;
 
     /**
      * @var string
      *
      * @ORM\Column(name="metier", type="string", length=255)
      */
-    private $metier;
+    protected $metier;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     * @Assert\Email(
-     *     message = "L'email '{{ value }}' n'est pas valide.",
-     *     checkMX = true)
-     */
-    private $email;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="email", type="string", length=255)
+//     * @Assert\Email(
+//     *     message = "L'email '{{ value }}' n'est pas valide.",
+//     *     checkMX = true)
+//     */
+//    protected $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="telephone", type="string", length=50, nullable=true)
      */
-    private $telephone;
+    protected $telephone;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateNaissance", type="date")
      */
-    private $dateNaissance;
+    protected $dateNaissance;
 
     /**
      * @var string
      *
      * @ORM\Column(name="presentation", type="text")
      */
-    private $presentation;
+    protected $presentation;
 
     /**
      * @var string
      *
      * @ORM\Column(name="facebook", type="string", length=255 , nullable=true)
      */
-    private $facebook;
+    protected $facebook;
 
     /**
      * @var string
      *
      * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
      */
-    private $twitter;
+    protected $twitter;
 
     /**
      * @var string
      *
      * @ORM\Column(name="viadeo", type="string", length=255, nullable=true)
      */
-    private $viadeo;
+    protected $viadeo;
 
     /**
      * @var string
      *
      * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
      */
-    private $linkedin;
+    protected $linkedin;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Experience", mappedBy="personne", cascade={"persist","remove"})
      */
-    private $experiences;
+    protected $experiences;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Formation", mappedBy="personne", cascade={"persist","remove"})
      */
-    private $formations;
+    protected $formations;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Skill", mappedBy="personne", cascade={"persist","remove"})
      */
-    private $skills;
+    protected $skills;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
+//    /**
+//     * Get id
+//     *
+//     * @return int
+//     */
+//    public function getId() {
+//        return $this->id;
+//    }
 
     /**
      * Set nom
@@ -213,27 +213,27 @@ class Personne {
         return $this->adresse;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Personne
-     */
-    public function setEmail($email) {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail() {
-        return $this->email;
-    }
+//    /**
+//     * Set email
+//     *
+//     * @param string $email
+//     *
+//     * @return Personne
+//     */
+//    public function setEmail($email) {
+//        $this->email = $email;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get email
+//     *
+//     * @return string
+//     */
+//    public function getEmail() {
+//        return $this->email;
+//    }
 
     /**
      * Set telephone
@@ -393,6 +393,7 @@ class Personne {
      * Constructor
      */
     public function __construct() {
+        parent::__construct();
         $this->experiences = new \Doctrine\Common\Collections\ArrayCollection();
         $this->formations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->skills = new \Doctrine\Common\Collections\ArrayCollection();

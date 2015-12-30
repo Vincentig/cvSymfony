@@ -1,6 +1,7 @@
-{% extends "::layout_appbundle.html.twig" %}
+{% extends ":admin:index.html.twig" %}
 
 {% block contenu %}
+    {{   parent() }}
     <h1>Experience list</h1>
 
     <table class="records_list">
@@ -44,9 +45,6 @@
             <a href="{{ path('admin_experience_new') }}">
                 Create a new entry
             </a>
-        </li>
-        <li>
-            <a href="{{ url('cv_admin_index') }}">Retour</a>
         </li>
     </ul>
     {% endblock %}

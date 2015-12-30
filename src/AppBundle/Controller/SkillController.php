@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Formation;
-use AppBundle\Form\FormationType;
+use AppBundle\Entity\Skill;
+use AppBundle\Form\SkillType;
 
 /**
- * Formation controller.
+ * Skill controller.
  *
- * @Route("/admin/formation")
+ * @Route("/admin/skill")
  */
-class FormationController extends Controller
+class SkillController extends Controller
 {
 
     /**
-     * Lists all Formation entities.
+     * Lists all Skill entities.
      *
-     * @Route("/", name="admin_formation")
+     * @Route("/", name="admin_skill")
      * @Method("GET")
      * @Template()
      */
@@ -29,34 +29,35 @@ class FormationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Formation')->findAll();
+        $entities = $em->getRepository('AppBundle:Skill')->findBy(array('personne'=>$this->getUser()));
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Formation entity.
+     * Creates a new Skill entity.
      *
-     * @Route("/", name="admin_formation_create")
+     * @Route("/", name="admin_skill_create")
      * @Method("POST")
-     * @Template("AppBundle:Formation:new.html.twig")
+     * @Template("AppBundle:Skill:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Formation();
+        $entity = new Skill();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $entity->setPersonne($this->getUser());
+            $personne=$this->getUser();
+            $entity->setPersonne($personne);
 
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_formation_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_skill_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -66,16 +67,16 @@ class FormationController extends Controller
     }
 
     /**
-     * Creates a form to create a Formation entity.
+     * Creates a form to create a Skill entity.
      *
-     * @param Formation $entity The entity
+     * @param Skill $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Formation $entity)
+    private function createCreateForm(Skill $entity)
     {
-        $form = $this->createForm(new FormationType(), $entity, array(
-            'action' => $this->generateUrl('admin_formation_create'),
+        $form = $this->createForm(new SkillType(), $entity, array(
+            'action' => $this->generateUrl('admin_skill_create'),
             'method' => 'POST',
         ));
 
@@ -85,15 +86,15 @@ class FormationController extends Controller
     }
 
     /**
-     * Displays a form to create a new Formation entity.
+     * Displays a form to create a new Skill entity.
      *
-     * @Route("/new", name="admin_formation_new")
+     * @Route("/new", name="admin_skill_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Formation();
+        $entity = new Skill();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -103,9 +104,9 @@ class FormationController extends Controller
     }
 
     /**
-     * Finds and displays a Formation entity.
+     * Finds and displays a Skill entity.
      *
-     * @Route("/{id}", name="admin_formation_show")
+     * @Route("/{id}", name="admin_skill_show")
      * @Method("GET")
      * @Template()
      */
@@ -113,10 +114,10 @@ class FormationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Formation')->find($id);
+        $entity = $em->getRepository('AppBundle:Skill')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Formation entity.');
+            throw $this->createNotFoundException('Unable to find Skill entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -128,9 +129,9 @@ class FormationController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Formation entity.
+     * Displays a form to edit an existing Skill entity.
      *
-     * @Route("/{id}/edit", name="admin_formation_edit")
+     * @Route("/{id}/edit", name="admin_skill_edit")
      * @Method("GET")
      * @Template()
      */
@@ -138,10 +139,10 @@ class FormationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Formation')->find($id);
+        $entity = $em->getRepository('AppBundle:Skill')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Formation entity.');
+            throw $this->createNotFoundException('Unable to find Skill entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -155,16 +156,16 @@ class FormationController extends Controller
     }
 
     /**
-    * Creates a form to edit a Formation entity.
+    * Creates a form to edit a Skill entity.
     *
-    * @param Formation $entity The entity
+    * @param Skill $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Formation $entity)
+    private function createEditForm(Skill $entity)
     {
-        $form = $this->createForm(new FormationType(), $entity, array(
-            'action' => $this->generateUrl('admin_formation_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new SkillType(), $entity, array(
+            'action' => $this->generateUrl('admin_skill_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -173,20 +174,20 @@ class FormationController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Formation entity.
+     * Edits an existing Skill entity.
      *
-     * @Route("/{id}", name="admin_formation_update")
+     * @Route("/{id}", name="admin_skill_update")
      * @Method("PUT")
-     * @Template("AppBundle:Formation:edit.html.twig")
+     * @Template("AppBundle:Skill:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Formation')->find($id);
+        $entity = $em->getRepository('AppBundle:Skill')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Formation entity.');
+            throw $this->createNotFoundException('Unable to find Skill entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -196,7 +197,7 @@ class FormationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_formation_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_skill_edit', array('id' => $id)));
         }
 
         return array(
@@ -206,9 +207,9 @@ class FormationController extends Controller
         );
     }
     /**
-     * Deletes a Formation entity.
+     * Deletes a Skill entity.
      *
-     * @Route("/{id}", name="admin_formation_delete")
+     * @Route("/{id}", name="admin_skill_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -218,21 +219,21 @@ class FormationController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Formation')->find($id);
+            $entity = $em->getRepository('AppBundle:Skill')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Formation entity.');
+                throw $this->createNotFoundException('Unable to find Skill entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_formation'));
+        return $this->redirect($this->generateUrl('admin_skill'));
     }
 
     /**
-     * Creates a form to delete a Formation entity by id.
+     * Creates a form to delete a Skill entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -241,7 +242,7 @@ class FormationController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_formation_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('admin_skill_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

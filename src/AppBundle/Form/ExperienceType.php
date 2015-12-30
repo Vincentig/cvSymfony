@@ -6,10 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
 
 class ExperienceType extends AbstractType
 {
@@ -21,23 +19,15 @@ class ExperienceType extends AbstractType
     {
         $builder
             ->add('dateDepart', BirthdayType::class)
-            ->add('dateFin', BirthdayType::class, array('required' => false))
+            ->add('dateFin', BirthdayType::class)
             ->add('entreprise', TextType::class)
             ->add('poste', TextType::class)
             ->add('contenu', TextareaType::class)
-
             ->add('skills', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
                 'class' => 'AppBundle:Skill',
                 'property' => 'nom',
                 'multiple' => true,
-                'expanded' => true,
-//                    'query_builder' => function($er) use ($produit){
-//                    $qb = $er->createQueryBuilder('i');
-//                    $qb->leftJoin('i.produits', 'p')
-//                            ->where('p = :produit')
-//                            ->setParameter('produit',$produit);
-//                    return $qb;
-//                    }
+                'expanded' => true
             ))
         ;
     }

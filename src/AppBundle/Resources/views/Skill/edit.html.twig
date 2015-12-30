@@ -2,15 +2,16 @@
 
 {% block contenu %}
     {{   parent() }}
-    <h1>Formation creation</h1>
+    <h1>Skill edit</h1>
 
-    {{ form(form) }}
+    {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_formation') }}">
+        <a href="{{ path('admin_skill') }}">
             Back to the list
         </a>
     </li>
+    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

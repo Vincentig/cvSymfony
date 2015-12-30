@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Personne;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -49,13 +48,9 @@ class ExperienceController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-
-
-
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setPersonne($em->getRepository('AppBundle:Personne')->find(1));
+            $entity->setPersonne($this->getUser());
             $em->persist($entity);
             $em->flush();
 
@@ -187,9 +182,6 @@ class ExperienceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Experience')->find($id);
-        var_dump($entity->getPersonne());
-
-
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Experience entity.');

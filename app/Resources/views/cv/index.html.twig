@@ -10,6 +10,29 @@
 {% block contenu %}
     <div class="upbtnwrapp"><div class="upbtn"><span class="icon-up-open-big"></span></div></div>
 
+    <nav class="site_nav" id="site_nav">
+        <div class="container">
+
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('cv_admin_index') }}">Admin</a></li>
+                        <li><a href="{{ path('fos_user_registration_register') }}">Ajouter utilisateur</a></li>
+                    {% endif %}
+                    <li><a href="{{ path('fos_user_profile_show') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}  </a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">
+                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                        </a> </li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a> </li>
+                {% endif %}
+
+
+            </ul>
+        </div>
+    </nav>
+
     <!-- NAVIGATION -->
     <nav class="site_nav" id="site_nav">
         <ul class="">
@@ -49,7 +72,7 @@
                             <li><a href="{{personne.facebook}}"><img src="{{asset('img/icons/facebook.png')}}" alt="" /></a></li>
                         {% endif %}
                         {% if personne.twitter is not null %}
-                            <li><a href="{{personne.twitter}}"><img src="{{asset('img/icons/2.jpg')}}" alt="" /></a></li>
+                            <li><a href="{{personne.twitter}}"><img src="{{asset('img/icons/twitter.png')}}" alt="" /></a></li>
                         {%endif%}
                         {% if personne.linkedin is not null %}
                             <li><a href="{{personne.linkedin}}"><img src="{{asset('img/icons/linkedin.png')}}" alt="" /></a></li>

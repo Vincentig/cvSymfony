@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Experience
  *
  * @ORM\Table(name="cv_experience")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ExperienceRepository")
+ * @ORM\Entity()
  */
 class Experience {
 

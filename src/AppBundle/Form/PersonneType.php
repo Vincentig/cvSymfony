@@ -4,48 +4,52 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use \Symfony\Component\Form\Extension\Core\Type\TextType;
-use \Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use \Symfony\Component\Form\Extension\Core\Type\EmailType;
-use \Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
-class PersonneType extends AbstractType {
 
+class PersonneType extends AbstractType
+{
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+//        parent::buildForm($builder, $options);
         $builder
-                ->add('nom', TextType::class)
-                ->add('prenom', TextType::class)
-                ->add('metier', TextType::class)
-                ->add('adresse', TextareaType::class)
-                ->add('cp', TextType::class)
-                ->add('ville', TextType::class)
-                ->add('email', TextType::class)
-                ->add('telephone', TextType::class, array('required' => false))
-                ->add('dateNaissance', BirthdayType::class)
-                ->add('presentation', TextareaType::class)
-                ->add('facebook', UrlType::class, array('required' => false))
-                ->add('twitter', UrlType::class, array('required' => false))
-                ->add('viadeo', UrlType::class, array('required' => false))
-                ->add('linkedin', UrlType::class, array('required' => false))
-                ->add('ok', SubmitType::class)
+            ->add('nom')
+            ->add('prenom')
+            ->add('adresse')
+            ->add('cp')
+            ->add('ville')
+            ->add('metier')
+            ->add('telephone')
+            ->add('dateNaissance')
+            ->add('presentation')
+            ->add('facebook')
+            ->add('twitter')
+            ->add('viadeo')
+            ->add('linkedin')
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Personne'
-        ));
+    public function getParent()
+    {
+        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+
+        // Or for Symfony < 2.8
+        // return 'fos_user_registration';
     }
 
+    public function getBlockPrefix()
+    {
+        return 'appbundle_personne';
+    }
+
+    // For Symfony 2.x
+    public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
 }
