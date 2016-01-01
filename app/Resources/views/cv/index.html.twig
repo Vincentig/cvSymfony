@@ -18,9 +18,8 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('cv_admin_index') }}">Admin</a></li>
-                        <li><a href="{{ path('fos_user_registration_register') }}">Ajouter utilisateur</a></li>
                     {% endif %}
-                    <li><a href="{{ path('fos_user_profile_show') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}  </a></li>
+                    <li><a href="{{ path('fos_user_profile_edit') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}  </a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">
                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                         </a> </li>
@@ -36,11 +35,10 @@
     <!-- NAVIGATION -->
     <nav class="site_nav" id="site_nav">
         <ul class="">
-            <li><a href="#about_me">About me</a></li>
-            <li><a href="#my_expertise">My Expertise</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#about_me">&Agrave propos</a></li>
+            <li><a href="#my_expertise">Compétences</a></li>
+            <li><a href="#experience">Expériences</a></li>
+            <li><a href="#education">Formations</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav> <!-- /site_nav -->
@@ -49,23 +47,22 @@
     <header class="site_header centerise borderbtn">
         <div id="logoline"><h1>{{ personne.prenom }} {{ personne.nom }}</h1></div>
         <h2>{{personne.metier}}</h2>
-        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vestibulum varius risus ut purus dignissim sed sagittis libero rutrum. </h3>
     </header> <!-- /site_header -->
     <!-- end HEADER -->
     <div class="container-fluid page">
 
         <!-- ABOUT ME -->
-        <section class="row-fluid about_me" id="about_me">
-            <aside class="span3 aside_el">
-                <h2>About me</h2>
-                <h5>professional profile<br /> and contact info</h5>
+        <section class="row about_me" id="about_me">
+            <aside class="col-sm-3 aside_el">
+                <h2>&Agrave; propos</h2>
+                <h5>Profil professionnel<br /> et informations personnelles</h5>
             </aside>
-            <article class="span6 borderleft par_el">
+            <article class="col-sm-6 borderleft par_el">
                 <span class="circle"><img style="float:left" src="{{asset('img/mypic.jpg')}}" alt=""/></span>
-                <p>{{personne.presentation}}</p>
+                <p>{{personne.presentation|raw}}</p>
 
             </article>
-            <div class="span3 cont_info">
+            <div class="col-sm-3 cont_info-1">
                 <div class="soc">
                     <ul>
                         {% if personne.facebook is not null %}
@@ -85,9 +82,9 @@
                 </div>
                 <div class="info">
                     <ul>
-                        {% if personne.telephone is not null %}<li><span class="icon-mobile"></span><a>{{personne.telephone}}</a></li>{%endif%}
-                        <li><span class="icon-location"></span><a>{{personne.adresse}}, {{personne.cp}} {{personne.ville}}</a></li>
-                        <li><span class="icon-mail"></span><a>{{personne.email}}</a></li>
+                        {% if personne.telephone is not null %}<li><span class="icon-mobile pull-left"></span><a>{{personne.telephone}}</a></li>{%endif%}
+                        <li><span class="icon-location pull-left"></span><a>{{personne.adresse}}, {{personne.cp}} {{personne.ville}}</a></li>
+                        <li><span class="icon-mail pull-left"></span><a>{{personne.email}}</a></li>
                     </ul>
                 </div>
             </div> <!-- /cont_info -->
@@ -95,17 +92,13 @@
         <!-- end ABOUT ME -->
 
         <!-- MY EXPERTISE -->
-        <section class="row-fluid my_expertise" id="my_expertise">
-            <aside class="span3 aside_el">
-                <h2>My Expertise</h2>
-                <h5>skills that I’m<br /> proud of</h5>
+        <section class="row my_expertise" id="my_expertise">
+            <aside class="col-sm-3 aside_el">
+                <h2>Compétences</h2>
+                <h5>Mes Compétences<br /> dont je suis fier</h5>
             </aside>
-            <article class="span4 borderleft par_el">
-                <p>Fringilla justo ullamcorper ac. Class aptent taciti sociosqu ad litora torque per conubia nostra, per inceptos himenaeos magna puella molto est.</p>
-                <p>Raesent sem elit, volutpat id vulputate faucibus, fringilla vel mass. Proin nec mi a mi tincidunt elementu sed vel ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>I love doing what I do.</p>
-            </article>
-            <div class="span5 skill_level">
+
+            <div class="col-sm-9  borderleft par_el skill_level">
 
 
                 {%for skill in personne.skills%}
@@ -121,17 +114,23 @@
         <!-- end MY EXPERTISE -->
 
         <!-- EXPERIENCE -->
-        <section class="row-fluid experience" id="experience">
-            <aside class="span3 aside_el">
-                <h2>Experience</h2>
-                <h5>where I worked</h5>
+        <section class="row experience" id="experience">
+            <aside class="col-sm-3 aside_el">
+                <h2>Expériences</h2>
+                <h5>Où j'ai travaillé</h5>
             </aside>
-            <div class="span9">
-
+            <div class="col-sm-9 borderleft">
+                <div class="row">
                 {% for experience in personne.experiences %}
-                    <div class="row-fluid">
-                        <article class="span12  borderleft par_el in_spacing">
-                            <span class="period">{{ experience.dateDepart|date('M Y') }} - {{ experience.dateFin|date('M Y') }}</span>
+
+                        <article class="col-sm-12   par_el in_spacing" style="margin-bottom:20px">
+                            <span class="period">
+                                {% if experience.dateDepart == experience.dateFin %}
+                                    {{ experience.dateDepart|dateIntl('fr_FR','Y') }}
+                                {% else %}
+                                    {{ experience.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ experience.dateFin|dateIntl('fr_FR','MMM Y') }}
+                                {% endif %}
+                            </span>
                             <div class="bigspacing">
                                 <header>
                                     <h2>{{ experience.entreprise }}</h2>
@@ -140,14 +139,15 @@
                                 <p>{{ experience.contenu }}</p>
                                 <p>
                                     {% for skill in experience.skills %}
-                                       {{ skill.nom }}{% if not loop.last %} /{% endif %}
+                                    <span class="label label-default">{{ skill.nom }}</span>
+                                        {#{% if not loop.last %} /{% endif %}#}
                                     {% endfor %}
                                 </p>
                             </div>
                         </article>
-                    </div>
-                {% endfor %}
 
+                {% endfor %}
+                </div>
 
 
             </div>
@@ -155,24 +155,35 @@
         <!-- end EXPERIENCE -->
 
         <!-- EDUCATION -->
-        <section class="row-fluid education" id="education">
-            <aside class="span3 aside_el">
-                <h2>Education</h2>
-                <h5>my college and<br /> high school</h5>
+        <section class="row education" id="education">
+            <aside class="col-sm-3 aside_el">
+                <h2>Formations</h2>
+                <h5>Mes études</h5>
             </aside>
-            <div class="span9">
+            <div class="col-sm-9">
 
                 {% for formation in personne.formations %}
-                    <div class="row-fluid">
-                        <article class="span12  borderleft par_el in_spacing">
-                            <span class="period">{{ formation.dateDepart|date('M Y') }} - {{ formation.dateFin|date('M Y') }}</span>
+                    <div class="row">
+                        <article class="col-sm-12  borderleft par_el in_spacing">
+                            <span class="period">
+                                {% if formation.dateDepart == formation.dateFin %}
+                                    {{ formation.dateDepart|dateIntl('fr_FR','Y') }}
+                                {% else %}
+                                    {{ formation.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ formation.dateFin|dateIntl('fr_FR','MMM Y') }}
+                                {% endif %}
+                            </span>
                             <div class="bigspacing">
                                 <header>
                                     <h2>{{ formation.diplome }}</h2>
                                     <h3>{{ formation.ecole }}</h3>
                                 </header>
                                 <p>{{ formation.contenu }}</p>
-
+                                <p>
+                                    {% for skill in formation.skills %}
+                                        <span class="label label-default">{{ skill.nom }}</span>
+                                        {#{% if not loop.last %} /{% endif %}#}
+                                    {% endfor %}
+                                </p>
                             </div>
                         </article>
                     </div>
@@ -186,13 +197,12 @@
 
 
     </div> <!-- /page -->
-    <footer class="row-fluid siteFooter">
+    <footer class="row siteFooter">
         <div id="contact">
-            <aside class="span3 aside_el">
-                <h2>Contact us</h2>
-                <h5>we reply in less<br /> than 24 hours</h5>
+            <aside class="col-sm-3 aside_el">
+                <h2>Contact</h2>
             </aside>
-            <div class="span9 borderleft">
+            <div class="col-sm-9 borderleft">
                 <form class="comment_form" data-validate="parsley">
                     <fieldset>
                         <input type="text" id="form_name" data-required="true" data-trigger="focusin focusout" placeholder="Name">
@@ -202,6 +212,10 @@
                     </fieldset>
                 </form>
             </div>
+        </div>
+
+        <div>
+            @VB  {{ "now"|date("Y") }}
         </div>
     </footer>
 

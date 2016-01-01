@@ -303,13 +303,14 @@ body {
 	margin: 0; padding: 0;
 	margin-top: -4px;
 	position: relative;
+	display: block;
 }
 .info ul li a, .info ul li a:hover {
 	font-size: 1.4em; /* 14px/10 */
 	color: #959595;
 	text-decoration: none;
-	line-height: 0em;
-	padding-left: 30px;
+	line-height: 26px;
+	/*padding-left: 30px;*/
 }
 
 /*-----------------------------*\
@@ -321,7 +322,7 @@ body {
 }
 .skill_level {
 	margin-top: 10px;
-	padding: 0 12px 0 7px;
+	/*padding: 0 12px 0 7px;*/
 }
 .skill_level h4{
 	/* Text */
@@ -347,10 +348,12 @@ body {
 
 .period  {
 	/* Positioning & Display */
-	position: absolute;
-	top: 0;
+	/*position: absolute;*/
+	/*top: 0;*/
 	padding-left: 5px;
 	padding-right: 5px;
+	display: inline-block;
+	margin-bottom: 10px;
 	/* Text */
 	font: 1.6em 'Droid Sans', sans-serif; /* 16px/10 */
 	color: white;
@@ -359,7 +362,7 @@ body {
 	background-color: #0099e8;
 }
 .bigspacing {
-	padding-left: 155px;
+	/*padding-left: 165px;*/
 }
 .par_el header h2 {
 	font-family: 'Arvo', serif;
