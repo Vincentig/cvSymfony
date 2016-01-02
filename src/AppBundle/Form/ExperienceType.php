@@ -18,11 +18,11 @@ class ExperienceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateDepart', BirthdayType::class)
+            ->add('dateDepart', BirthdayType::class, array('required' => false))
             ->add('dateFin', BirthdayType::class)
             ->add('entreprise', TextType::class)
             ->add('poste', TextType::class)
-            ->add('contenu', TextareaType::class)
+            ->add('contenu', TextareaType::class, array('required' => false))
             ->add('skills', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
                 'class' => 'AppBundle:Skill',
                 'property' => 'nom',

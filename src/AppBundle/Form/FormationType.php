@@ -20,13 +20,13 @@ class FormationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateDepart', BirthdayType::class)
+            ->add('dateDepart', BirthdayType::class, array('required' => false))
             ->add('dateFin', DateType::class, array(
                 'years'         => range("1950", date('Y') + 5)
             ))
             ->add('ecole', TextType::class)
             ->add('diplome', TextType::class)
-            ->add('contenu', TextareaType::class)
+            ->add('contenu', TextareaType::class, array('required' => false))
             ->add('skills', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
                 'class' => 'AppBundle:Skill',
                 'property' => 'nom',

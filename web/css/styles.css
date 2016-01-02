@@ -242,6 +242,11 @@ body {
 	margin-bottom: -3px;
 }
 
+#experience article:not(:last-child), #education article:not(:last-child){
+	margin-bottom: 20px;
+}
+
+
 .upbtnwrapp {
 	display: none;
 	text-align: center;
@@ -269,8 +274,8 @@ body {
 	text-align: center; 
 	font-size: 35px; /* 30/14 */
 	position: relative;
-	bottom: 5px;
-	right: 18px;
+	/*bottom: 5px;*/
+	/*right: 18px;*/
 } 
 
 /* contact info */

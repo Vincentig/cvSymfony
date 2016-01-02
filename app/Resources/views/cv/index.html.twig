@@ -8,32 +8,32 @@
     {% endblock %}
 
 {% block contenu %}
-    <div class="upbtnwrapp"><div class="upbtn"><span class="icon-up-open-big"></span></div></div>
+    <div class="upbtn"><span class="icon-up-open-big"></span></div>
 
-    <nav class="site_nav" id="site_nav">
-        <div class="container">
+    {#<nav class="site_nav2" id="site_nav2">#}
+        {#<div class="container">#}
 
-            <ul class="nav navbar-nav navbar-right">
+            {#<ul class="nav navbar-nav navbar-right">#}
 
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('cv_admin_index') }}">Admin</a></li>
-                    {% endif %}
-                    <li><a href="{{ path('fos_user_profile_edit') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}  </a></li>
-                    <li><a href="{{ path('fos_user_security_logout') }}">
-                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                        </a> </li>
-                {% else %}
-                    <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a> </li>
-                {% endif %}
+                {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+                    {#{% if is_granted('ROLE_ADMIN') %}#}
+                        {#<li><a href="{{ path('cv_admin_index') }}">Admin</a></li>#}
+                    {#{% endif %}#}
+                    {#<li><a href="{{ path('fos_user_profile_edit') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}  </a></li>#}
+                    {#<li><a href="{{ path('fos_user_security_logout') }}">#}
+                            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+                        {#</a> </li>#}
+                {#{% else %}#}
+                    {#<li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a> </li>#}
+                {#{% endif %}#}
 
 
-            </ul>
-        </div>
-    </nav>
+            {#</ul>#}
+        {#</div>#}
+    {#</nav>#}
 
     <!-- NAVIGATION -->
-    <nav class="site_nav" id="site_nav">
+    <nav class="site_nav row" id="site_nav">
         <ul class="">
             <li><a href="#about_me">&Agrave propos</a></li>
             <li><a href="#my_expertise">Compétences</a></li>
@@ -123,15 +123,17 @@
                 <div class="row">
                 {% for experience in personne.experiences %}
 
-                        <article class="col-sm-12   par_el in_spacing" style="margin-bottom:20px">
-                            <span class="period">
-                                {% if experience.dateDepart == experience.dateFin %}
-                                    {{ experience.dateDepart|dateIntl('fr_FR','Y') }}
-                                {% else %}
-                                    {{ experience.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ experience.dateFin|dateIntl('fr_FR','MMM Y') }}
-                                {% endif %}
-                            </span>
-                            <div class="bigspacing">
+                        <article class="col-sm-12   par_el in_spacing" >
+                            <div class="col-sm-4">
+                                <span class="period">
+                                    {% if experience.dateDepart == experience.dateFin %}
+                                        {{ experience.dateDepart|dateIntl('fr_FR','Y') }}
+                                    {% else %}
+                                        {{ experience.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ experience.dateFin|dateIntl('fr_FR','MMM Y') }}
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="col-sm-8">
                                 <header>
                                     <h2>{{ experience.entreprise }}</h2>
                                     <h3>{{ experience.poste }}</h3>
@@ -160,19 +162,22 @@
                 <h2>Formations</h2>
                 <h5>Mes études</h5>
             </aside>
-            <div class="col-sm-9">
-
+            <div class="col-sm-9 borderleft">
+                <div class="row">
                 {% for formation in personne.formations %}
-                    <div class="row">
-                        <article class="col-sm-12  borderleft par_el in_spacing">
-                            <span class="period">
+
+                        <article class="col-sm-12   par_el in_spacing">
+                            <div class="col-sm-4">
+                                <span class="period ">
                                 {% if formation.dateDepart == formation.dateFin %}
                                     {{ formation.dateDepart|dateIntl('fr_FR','Y') }}
                                 {% else %}
                                     {{ formation.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ formation.dateFin|dateIntl('fr_FR','MMM Y') }}
                                 {% endif %}
                             </span>
-                            <div class="bigspacing">
+                            </div>
+
+                            <div class="col-sm-8">
                                 <header>
                                     <h2>{{ formation.diplome }}</h2>
                                     <h3>{{ formation.ecole }}</h3>
@@ -186,9 +191,9 @@
                                 </p>
                             </div>
                         </article>
-                    </div>
-                {% endfor %}
 
+                {% endfor %}
+                </div>
 
             </div>
         </section> <!-- /education -->
@@ -372,7 +377,6 @@
                 $(".site_nav").css({
                     "position": "relative",
                     "margin-bottom": "0",
-                    "width": "100%",
                 });
                 $("#aftermenuspace").css({
                     "height": "0",
