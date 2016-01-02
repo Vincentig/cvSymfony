@@ -321,13 +321,17 @@ body {
 /*-----------------------------*\
 	$MY EXPERTISE
 \*-----------------------------*/
+.label{
+	display:inline-block;
+	margin-bottom: 1px;
+}
 
 .my_expertise {
 	margin-top: 60px;
 }
 .skill_level {
 	margin-top: 10px;
-	/*padding: 0 12px 0 7px;*/
+	padding: 0 120px;
 }
 .skill_level h4{
 	/* Text */

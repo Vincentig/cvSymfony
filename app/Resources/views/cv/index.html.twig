@@ -58,7 +58,8 @@
                 <h5>Profil professionnel<br /> et informations personnelles</h5>
             </aside>
             <article class="col-sm-6 borderleft par_el">
-                <span class="circle"><img style="float:left" src="{{asset('img/mypic.jpg')}}" alt=""/></span>
+                {#<span class="circle"><img style="float:left" src="{{asset('img/mypic.jpg')}}" alt=""/></span>#}
+                <span class="circle"><img style="float:left; width:84px;top: -22px;position: absolute;left: -1px;" src="{{asset('img/IMG_5110.JPG')}}" alt=""/></span>
                 <p>{{personne.presentation|raw}}</p>
 
             </article>
@@ -377,6 +378,7 @@
                 $(".site_nav").css({
                     "position": "relative",
                     "margin-bottom": "0",
+                    width: auto
                 });
                 $("#aftermenuspace").css({
                     "height": "0",
