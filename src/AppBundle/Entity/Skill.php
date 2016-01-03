@@ -36,6 +36,12 @@ class Skill {
     private $niveauPersonne;
 
     /**
+     * @var int
+     * @ORM\Column(name="ordre", type="integer", nullable=true)
+     */
+    private $ordre;
+
+    /**
      *
      * @var AppBundle\Entity\Personne
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Personne", inversedBy="skills")
@@ -117,4 +123,28 @@ class Skill {
         return $this->personne;
     }
 
+
+    /**
+     * Set ordre
+     *
+     * @param integer $ordre
+     *
+     * @return Skill
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return integer
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
+    }
 }

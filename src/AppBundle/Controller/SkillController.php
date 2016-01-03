@@ -29,7 +29,10 @@ class SkillController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Skill')->findBy(array('personne'=>$this->getUser()));
+        $entities = $em->getRepository('AppBundle:Skill')->findBy(
+            array('personne'=>$this->getUser()),
+            array( 'ordre'=>'ASC')
+        );
 
         return array(
             'entities' => $entities,
@@ -44,24 +47,29 @@ class SkillController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity = new Skill();
-        $form = $this->createCreateForm($entity);
+//        $entity = new Skill();
+//        $form = $this->createCreateForm($entity);
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $personne = $em->getRepository('AppBundle:Personne')->find(1);
+        $form = $this->createCreateForm( $personne);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $personne=$this->getUser();
-            $entity->setPersonne($personne);
+           // $entity->setPersonne($personne);
 
-            $em->persist($entity);
+          //  $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_skill_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_skill'));
         }
 
         return array(
-            'entity' => $entity,
             'form'   => $form->createView(),
         );
     }
@@ -73,9 +81,9 @@ class SkillController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Skill $entity)
+    private function createCreateForm( $entity)
     {
-        $form = $this->createForm(new SkillType(), $entity, array(
+        $form = $this->createForm(new \AppBundle\Form\PersonneSkillsType(), $entity, array(
             'action' => $this->generateUrl('admin_skill_create'),
             'method' => 'POST',
         ));
@@ -94,11 +102,16 @@ class SkillController extends Controller
      */
     public function newAction()
     {
-        $entity = new Skill();
-        $form   = $this->createCreateForm($entity);
+//        $entity = new Skill();
+//        $form   = $this->createCreateForm($entity);
+
+        $em = $this->getDoctrine()->getManager();
+        $personne = $em->getRepository('AppBundle:Personne')->find(1);
+        $form = $this->createCreateForm( $personne);
+
+
 
         return array(
-            'entity' => $entity,
             'form'   => $form->createView(),
         );
     }

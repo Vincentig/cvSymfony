@@ -17,6 +17,7 @@ class SkillType extends AbstractType
         $builder
             ->add('nom')
             ->add('niveauPersonne')
+            ->add('ordre')
         ;
     }
     
