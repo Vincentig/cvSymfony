@@ -127,8 +127,19 @@
                         <article class="col-sm-12   par_el in_spacing" >
                             <div class="col-sm-4">
                                 <span class="period">
-                                    {% if experience.dateDepart == experience.dateFin %}
-                                        {{ experience.dateDepart|dateIntl('fr_FR','Y') }}
+
+
+                                    {# endDate and startDate are strings or DateTime objects #}
+                                    {% set difference = date(experience.dateFin).diff(date( experience.dateDepart)) %}
+                                    {% set duree = difference.days %}
+
+
+                                    {% if experience.dateDepart is null %}
+                                        {{ experience.dateFin|dateIntl('fr_FR','Y') }}
+                                    {% elseif duree > 365 %}
+                                        {{ experience.dateDepart|dateIntl('fr_FR','Y') }} - {{ experience.dateFin|dateIntl('fr_FR','Y') }}
+                                    {% elseif experience.dateDepart|date('M Y') == experience.dateFin|date('M Y')  %}
+                                        {{ experience.dateFin|dateIntl('fr_FR','MMM Y') }}
                                     {% else %}
                                         {{ experience.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ experience.dateFin|dateIntl('fr_FR','MMM Y') }}
                                     {% endif %}
@@ -170,12 +181,21 @@
                         <article class="col-sm-12   par_el in_spacing">
                             <div class="col-sm-4">
                                 <span class="period ">
-                                {% if formation.dateDepart == formation.dateFin %}
-                                    {{ formation.dateDepart|dateIntl('fr_FR','Y') }}
-                                {% else %}
-                                    {{ formation.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ formation.dateFin|dateIntl('fr_FR','MMM Y') }}
-                                {% endif %}
-                            </span>
+                                   {# endDate and startDate are strings or DateTime objects #}
+                                    {% set difference = date(formation.dateFin).diff(date( formation.dateDepart)) %}
+                                    {% set duree = difference.days %}
+
+
+                                    {% if formation.dateDepart is null %}
+                                        {{ formation.dateFin|dateIntl('fr_FR','Y') }}
+                                    {% elseif duree > 365 %}
+                                        {{ formation.dateDepart|dateIntl('fr_FR','Y') }} - {{ formation.dateFin|dateIntl('fr_FR','Y') }}
+                                    {% elseif formation.dateDepart|date('M Y') == formation.dateFin|date('M Y')  %}
+                                        {{ formation.dateFin|dateIntl('fr_FR','MMM Y') }}
+                                    {% else %}
+                                        {{ formation.dateDepart|dateIntl('fr_FR','MMM Y') }} - {{ formation.dateFin|dateIntl('fr_FR','MMM Y') }}
+                                    {% endif %}
+                                </span>
                             </div>
 
                             <div class="col-sm-8">
