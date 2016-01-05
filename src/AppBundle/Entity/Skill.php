@@ -3,12 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Skill
  *
  * @ORM\Table(name="cv_skill")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  */
 class Skill {
 
@@ -38,6 +39,7 @@ class Skill {
     /**
      * @var int
      * @ORM\Column(name="ordre", type="integer", nullable=true)
+     * @Gedmo\SortablePosition
      */
     private $ordre;
 
