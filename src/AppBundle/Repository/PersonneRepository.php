@@ -77,4 +77,24 @@ class PersonneRepository extends \Doctrine\ORM\EntityRepository {
         return new Paginator($qb);
     }
 
+    public function getFullCv($id)
+    {
+        $queryBuilder = $this->createQueryBuilder('cv')
+            ->leftJoin('cv.experiences','exp')
+            ->addSelect('exp')
+            ->leftJoin('cv.formations', 'formations')
+            ->addSelect('formations')
+            ->leftJoin('cv.skills','skills')
+            ->addSelect('skills')
+            ->leftJoin('exp.skills','expskills')
+            ->addSelect('expskills')
+            ->leftJoin('formations.skills','formationSills')
+            ->addSelect('formationSills')
+            ->where('cv.id = :id')
+            ->setParameter('id',$id);
+
+
+        return $queryBuilder->getQuery()->getSingleResult();
+    }
+
 }

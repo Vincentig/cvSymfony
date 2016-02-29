@@ -38,7 +38,7 @@ class Skill {
 
     /**
      * @var int
-     * @ORM\Column(name="ordre", type="integer", nullable=true)
+     * @ORM\Column(name="ordre", type="integer", nullable=false)
      * @Gedmo\SortablePosition
      */
     private $ordre;

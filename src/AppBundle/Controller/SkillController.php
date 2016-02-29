@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -54,16 +55,74 @@ class SkillController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $personne = $em->getRepository('AppBundle:Personne')->find(1);
+
+        $originalSkills = new ArrayCollection();
+        // Create an ArrayCollection of the current Tag objects in the database
+        foreach ($personne->getSkills() as $skill) {
+            $originalSkills->add($skill);
+
+        }
+
         $form = $this->createCreateForm( $personne);
         $form->handleRequest($request);
+
+
+   // var_dump($request->);
+
+
+
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $personne=$this->getUser();
+            //$personne=$this->getUser();
            // $entity->setPersonne($personne);
 
           //  $em->persist($entity);
+
+            //var_dump($personne->getSkills());
+
+            $i=0;
+            foreach ($originalSkills as $skill) {
+                if (false === $personne->getSkills()->contains($skill)) {
+                    echo 'Dans le if<br/>';
+                    // remove the Task from the Tag
+                    //$tag->getTasks()->removeElement($task);
+
+                    // if it was a many-to-one relationship, remove the relationship like this
+                    // $tag->setTask(null);
+
+                   // $em->persist($tag);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+                     $em->remove($skill);
+                }
+                else{
+                    echo 'dans le else <br/>';
+                    //$skill->setOrdre($i);
+                   // var_dump($skill->getOrdre());
+                 ////   $em->detach($skill);
+                   // $em->persist($skill);
+                }
+                $i++;
+            }
+
+//            $i=0;
+//            foreach ($personne->getSkills() as $skill) {
+//
+//
+//                    $skill->setOrdre($i);
+//                    var_dump($skill->getOrdre(), $skill->getNom());
+//                    ////   $em->detach($skill);
+//                    // $em->persist($skill);
+//
+//                $i++;
+//            }
+
+
+
+
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_skill'));

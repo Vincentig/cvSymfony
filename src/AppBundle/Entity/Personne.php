@@ -135,6 +135,7 @@ class Personne extends BaseUser{
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Skill", mappedBy="personne", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $skills;
 

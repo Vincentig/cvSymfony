@@ -8,6 +8,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Ordre</th>
                 <th>Nom</th>
                 <th>Niveaupersonne</th>
                 <th>Actions</th>
@@ -17,6 +18,7 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('admin_skill_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.ordre }}</td>
                 <td>{{ entity.nom }}</td>
                 <td>{{ entity.niveauPersonne }}</td>
                 <td>
