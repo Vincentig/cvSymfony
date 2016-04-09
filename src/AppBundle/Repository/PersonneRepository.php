@@ -91,7 +91,9 @@ class PersonneRepository extends \Doctrine\ORM\EntityRepository {
             ->leftJoin('formations.skills','formationSills')
             ->addSelect('formationSills')
             ->where('cv.id = :id')
-            ->setParameter('id',$id);
+            ->setParameter('id',$id)
+            ->addOrderBy('formations.dateFin ','DESC')
+            ->addOrderBy('exp.dateFin ','DESC');
 
 
         return $queryBuilder->getQuery()->getSingleResult();
